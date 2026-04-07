@@ -15,6 +15,7 @@ A suite of tools for extracting, analyzing, and visualizing open science indicat
 | Repository | Description |
 |------------|-------------|
 | [osm-2025-12-poster-incf](https://github.com/nimh-dsst/osm-2025-12-poster-incf) | Analysis and visualizations for INCF 2025 conference poster on open science trends across 6.5M articles. |
+| [osm-icssi-2026](https://github.com/agt24/osm-icssi-2026) | Extended abstract for ICSSI 2026: open data sharing rates across major biomedical funders (784K articles, Jan 2024 – Jun 2025). |
 
 ## Architecture
 

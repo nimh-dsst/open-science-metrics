@@ -219,6 +219,55 @@ python analysis/funder_data_sharing_summary.py --aggregate-children
 
 ---
 
+### 5. osm-preprint-2026
+
+**Purpose:** LaTeX preprint manuscript analyzing open data sharing trends across ~326k biomedical articles (2024-2025). Demonstrates dramatic variation in open data rates by funder, journal, and institution (baseline 13.5%, up to 82% for top performers).
+
+**Tech Stack:**
+- LaTeX (single-column article, biblatex science style)
+- Python 3.11+ (pandas, duckdb, matplotlib)
+- Git + GitHub (private) + Overleaf integration
+- PaperPile for bibliography management
+
+**Key Directories:**
+- `latex/` - Modular LaTeX source (main.tex, article.tex, tables/, figures/)
+- `scripts/` - Python table/figure generation (4 tables: funders, journals, institutions, repositories)
+- `docs/` - Implementation plan and documentation
+- `results/` - CSV summaries for reproducibility
+
+**Data Sources:**
+- oddpub results: `/data/adamt/osm/datafiles/oddpub_output/*.parquet` (~326k articles, growing to ~618k)
+- OpenAlex metadata: `/data/adamt/osm/datafiles/pubmed_metadata/openalex_*.parquet`
+- Funder aliases: `scripts/funder_aliases_v4.csv` (from osm-2025-12-poster-incf)
+
+**Commands:**
+```bash
+cd ~/claude/osm/osm-preprint-2026
+
+# Regenerate tables from updated data
+make tables
+
+# Compile PDF locally
+make compile
+
+# Push to GitHub and Overleaf
+git push origin develop
+git push overleaf develop
+```
+
+**Primary Findings:**
+- Top funders by open data percentage (NIH, Wellcome Trust, UKRI: 30-82%)
+- Top journals (Nature Communications, eLife, PLOS)
+- Top institutions (analysis in progress)
+- Top repositories (GenBank, Zenodo, Dryad)
+- Interactive dashboard at https://www.opensciencemetrics.org
+
+**Time Frame:** Jan 2024 to June 2025
+
+**Recent Activity:** Initial skeleton implementation, GitHub repo created, LaTeX structure and Python infrastructure established
+
+---
+
 ## Shared Technical Patterns
 
 ### Open Science Indicators Detected
@@ -294,13 +343,11 @@ osm-2025-12-poster-incf (frozen analysis)
          ▼
     osm-pipeline (active development)
          │
-         │ processed data, registries
-         ▼
-    osm-dashboard (visualization)
-         │
-         │ metrics extraction
-         ▼
-      dsst-etl (NIH intramural data)
+         ├─────────────────┬─────────────────┐
+         │ processed data  │                 │
+         ▼                 ▼                 ▼
+    osm-dashboard    osm-preprint-2026   dsst-etl
+   (visualization)   (manuscript)     (NIH data)
 ```
 
 Each repo has its own CLAUDE.md with detailed component-specific guidance.
